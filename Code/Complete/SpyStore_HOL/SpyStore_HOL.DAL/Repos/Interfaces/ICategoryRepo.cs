@@ -6,7 +6,5 @@ namespace SpyStore_HOL.DAL.Repos.Interfaces
 {
     public interface ICategoryRepo : IRepo<Category>
     {
-        IEnumerable<Category> GetAllWithProducts();
-        Category GetOneWithProducts(int? id);
     }
 }
