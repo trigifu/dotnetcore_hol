@@ -1,6 +1,6 @@
 @model OrderWithDetailsAndProductInfo
 @{
-    ViewData["Title"] = "Details";
+  ViewData["Title"] = "Details";
 }
 <h3>@ViewBag.Header</h3>
 <div class="row top-row">
@@ -21,6 +21,7 @@
             123 State Street<br>
             Whatever, UT 55555<br>
             <abbr title="Phone">P:</abbr> (123) 456-7890
+            <email email-domain="domain.com" email-name="John.Doe"></email>
         </address>
     </div>
     <div class="col-sm-6">
@@ -44,33 +45,33 @@
             </tr>
         </thead>
         <tbody>
-            @for (int x=0;x<Model.OrderDetails.Count;x++)
-            {
-                var item = Model.OrderDetails[x];
-                <tr>
-                    <td>
-                        <div>
-                            <img src="@Url.Content($"~/images/{item.ProductImageThumb}")" class="pull-left" />
-                            <a asp-controller="Products"
-                               asp-action="Details"
-                               asp-route-id="@item.ProductId" class="h5">
-                                @Html.DisplayFor(model => item.ModelName)
-                            </a>
-                            <div class="small text-muted hidden-xs">
-                                @Html.DisplayFor(model => item.Description)
-                            </div>
+            @for (int x = 0; x < Model.OrderDetails.Count; x++)
+      {
+        var item = Model.OrderDetails[x];
+            <tr>
+                <td>
+                    <div>
+                        <img src="@Url.Content($"~/images/{item.ProductImageThumb}")" class="pull-left" />
+                        <a asp-controller="Products"
+                           asp-action="Details"
+                           asp-route-id="@item.ProductId" class="h5">
+                            @Html.DisplayFor(model => item.ModelName)
+                        </a>
+                        <div class="small text-muted hidden-xs">
+                            @Html.DisplayFor(model => item.Description)
                         </div>
-                    </td>
-                    <td class="text-right">
-                        @Html.DisplayFor(model => item.UnitCost)
-                    </td>
-                    <td class="text-right">
-                        @Html.DisplayFor(model => item.Quantity)
-                    </td>
-                    <td class="text-right">
-                        @Html.DisplayFor(model => item.LineItemTotal)
-                    </td>
-                </tr>
+                    </div>
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(model => item.UnitCost)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(model => item.Quantity)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(model => item.LineItemTotal)
+                </td>
+            </tr>
             }
         </tbody>
         <tfoot>

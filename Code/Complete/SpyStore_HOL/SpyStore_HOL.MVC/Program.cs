@@ -9,6 +9,7 @@ namespace SpyStore_HOL.MVC
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
+				//Use the port from launchSettings.json
                 .UseUrls("http://*:55876/")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
