@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Cart\DisplayTemplates\**" />
+    <Content Remove="Views\Cart\DisplayTemplates\**" />
+    <EmbeddedResource Remove="Views\Cart\DisplayTemplates\**" />
+    <None Remove="Views\Cart\DisplayTemplates\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\images\bg.jpg" />
     <Content Include="wwwroot\images\jumbo.png" />
     <Content Include="wwwroot\images\product-image-lg.png" />
@@ -29,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0" />
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.4.337" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpyStore_HOL.DAL\SpyStore_HOL.DAL.csproj" />
@@ -38,9 +46,6 @@
     <Reference Include="System.Runtime">
       <HintPath>..\..\..\..\..\..\Users\skime\.nuget\packages\system.runtime\4.3.0\ref\netstandard1.5\System.Runtime.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Cart\DisplayTemplates\" />
   </ItemGroup>
 
 </Project>
