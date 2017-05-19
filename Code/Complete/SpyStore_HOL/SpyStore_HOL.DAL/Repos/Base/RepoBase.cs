@@ -51,6 +51,7 @@ namespace SpyStore_HOL.DAL.Repos.Base
             => ascending ? Table.Include(include).OrderBy(orderBy) : Table.Include(include).OrderByDescending(orderBy);
 
         public T First() => Table.FirstOrDefault();
+     
         public T First(Expression<Func<T, bool>> where) => Table.FirstOrDefault(where);
         public T First<TIncludeField>(Expression<Func<T, bool>> where, Expression<Func<T, TIncludeField>> include) 
             => Table.Where(where).Include(include).FirstOrDefault();
