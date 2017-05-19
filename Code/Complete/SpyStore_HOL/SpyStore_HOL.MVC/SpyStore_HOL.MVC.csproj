@@ -9,13 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Views\Cart\DisplayTemplates\**" />
-    <Content Remove="Views\Cart\DisplayTemplates\**" />
-    <EmbeddedResource Remove="Views\Cart\DisplayTemplates\**" />
-    <None Remove="Views\Cart\DisplayTemplates\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="wwwroot\images\bg.jpg" />
     <Content Include="wwwroot\images\jumbo.png" />
     <Content Include="wwwroot\images\product-image-lg.png" />
