@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SpyStore_HOL": {
+    "SpyStore_HOL.MVC": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
