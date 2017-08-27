@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		Migrations.txt = Migrations.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpyStore.ConsoleDriver", "SpyStore.ConsoleDriver\SpyStore.ConsoleDriver.csproj", "{54D13126-912E-4141-9F97-A3E9308BF711}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{5F9A405E-9295-4EAC-B079-4C2694A68A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F9A405E-9295-4EAC-B079-4C2694A68A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F9A405E-9295-4EAC-B079-4C2694A68A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D13126-912E-4141-9F97-A3E9308BF711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D13126-912E-4141-9F97-A3E9308BF711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D13126-912E-4141-9F97-A3E9308BF711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D13126-912E-4141-9F97-A3E9308BF711}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

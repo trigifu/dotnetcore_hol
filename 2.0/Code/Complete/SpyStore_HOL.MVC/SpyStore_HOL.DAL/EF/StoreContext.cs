@@ -15,7 +15,8 @@ namespace SpyStore_HOL.DAL.EF
         {
             try
             {
-                Database.Migrate();
+                //Ensures db created and runs all migrations
+                //Database.Migrate();
             }
             catch (Exception)
             {

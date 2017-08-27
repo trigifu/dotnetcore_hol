@@ -4,4 +4,7 @@ dotnet ef database update
 dotnet ef migrations add TSQL -o EF\Migrations -c SpyStore_HOL.DAL.EF.StoreContext 
 dotnet ef database update
 
+dotnet ef migrations add Final -o EF\Migrations -c SpyStore_HOL.DAL.EF.StoreContext 
+dotnet ef database update
+
 
