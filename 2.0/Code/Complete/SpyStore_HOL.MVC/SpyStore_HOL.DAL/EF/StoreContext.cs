@@ -8,7 +8,7 @@ namespace SpyStore_HOL.DAL.EF
 {
     public class StoreContext : DbContext
     {
-        public StoreContext()
+        internal StoreContext()
         {
         }
         public StoreContext(DbContextOptions options) : base(options)

@@ -4,8 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SpyStore_HOL.DAL.EF;
+using SpyStore_HOL.DAL.EF.Initialization;
+using SpyStore_HOL.DAL.Repos;
+using SpyStore_HOL.DAL.Repos.Interfaces;
 
 namespace SpyStore_HOL.MVC
 {
@@ -22,6 +27,16 @@ namespace SpyStore_HOL.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContextPool<StoreContext>(
+                options => options.UseSqlServer(
+                    Configuration.GetConnectionString("SpyStore")));
+            services.AddScoped<ICategoryRepo, CategoryRepo>();
+            services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<ICustomerRepo, CustomerRepo>();
+            services.AddScoped<IShoppingCartRepo, ShoppingCartRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
+            services.AddScoped<IOrderDetailRepo, OrderDetailRepo>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,10 +46,16 @@ namespace SpyStore_HOL.MVC
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                    .CreateScope())
+                {
+                    StoreDataInitializer.InitializeData(serviceScope.ServiceProvider.GetRequiredService<StoreContext>());
+                }
+
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Products/Error");
             }
 
             app.UseStaticFiles();
@@ -43,7 +64,7 @@ namespace SpyStore_HOL.MVC
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Products}/{action=Index}/{id?}");
             });
         }
     }

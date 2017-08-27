@@ -9,23 +9,23 @@ namespace SpyStore_HOL.MVC.ViewComponents
     //The runtime searches for the view in the following paths:
     //    Views/<controller_name>/Components/<view_component_name>/<view_name>
     //    Views/Shared/Components/<view_component_name>/<view_name>
-public class Menu : ViewComponent
-{
-    private readonly ICategoryRepo _categoryRepo;
-
-    public Menu(ICategoryRepo categoryRepo)
+    public class Menu : ViewComponent
     {
-        _categoryRepo = categoryRepo;
-    }
+        private readonly ICategoryRepo _categoryRepo;
 
-    public async Task<IViewComponentResult> InvokeAsync()
-    {
-        var cats = _categoryRepo.GetAll();
-        if (cats == null)
+        public Menu(ICategoryRepo categoryRepo)
         {
-            return new ContentViewComponentResult("There was an error getting the categories");
+            _categoryRepo = categoryRepo;
         }
-        return View("MenuView", cats);
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var cats = _categoryRepo.GetAll();
+            if (cats == null)
+            {
+                return new ContentViewComponentResult("There was an error getting the categories");
+            }
+            return View("MenuView", cats);
+        }
     }
-}
 }

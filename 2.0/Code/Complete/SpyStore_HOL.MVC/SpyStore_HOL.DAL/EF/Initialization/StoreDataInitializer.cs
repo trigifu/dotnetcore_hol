@@ -7,11 +7,6 @@ namespace SpyStore_HOL.DAL.EF.Initialization
 {
     public static class StoreDataInitializer
     {
-        public static void InitializeData(IServiceProvider serviceProvider)
-        {
-            var context = serviceProvider.GetService<StoreContext>();
-            InitializeData(context);
-        }
         public static void InitializeData(StoreContext context)
         {
             context.Database.Migrate();
