@@ -28,8 +28,7 @@ namespace SpyStore_HOL.MVC
         {
             services.AddMvc();
             services.AddDbContextPool<StoreContext>(
-                options => options.UseSqlServer(
-                    Configuration.GetConnectionString("SpyStore")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("SpyStore")));
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<ICustomerRepo, CustomerRepo>();

@@ -32,6 +32,13 @@ namespace SpyStore_HOL.Tests.ContextTests
         }
 
         [Fact]
+        public void ShouldGetOrderTotalWithFunction()
+        {
+            var order = _db.Orders.First(x => StoreContext.GetOrderTotal(x.Id) == 4424.90M);
+            Assert.Equal(4424.90M, order.OrderTotal.Value);
+        }
+
+        [Fact]
         public void ShouldUpdateAnOrder()
         {
             var order = _db.Orders.FirstOrDefault();

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpyStore_HOL.MVC", "SpyStore_HOL.MVC\SpyStore_HOL.MVC.csproj", "{77F293A9-A875-4DF7-AB8D-69C4E02E36B4}"
 EndProject
@@ -15,8 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 	ProjectSection(SolutionItems) = preProject
 		Migrations.txt = Migrations.txt
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpyStore.ConsoleDriver", "SpyStore.ConsoleDriver\SpyStore.ConsoleDriver.csproj", "{54D13126-912E-4141-9F97-A3E9308BF711}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +38,6 @@ Global
 		{5F9A405E-9295-4EAC-B079-4C2694A68A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F9A405E-9295-4EAC-B079-4C2694A68A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F9A405E-9295-4EAC-B079-4C2694A68A4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54D13126-912E-4141-9F97-A3E9308BF711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54D13126-912E-4141-9F97-A3E9308BF711}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54D13126-912E-4141-9F97-A3E9308BF711}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54D13126-912E-4141-9F97-A3E9308BF711}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

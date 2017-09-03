@@ -2,12 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using SpyStore_HOL.Models.Entities;
 
 namespace SpyStore_HOL.DAL.EF
 {
     public class StoreContext : DbContext
     {
+        [DbFunction("GetOrderTotal",Schema = "Store")]
+        public static int GetOrderTotal(int orderId)
+        {
+            //code in here doesn't matter
+            throw new Exception();
+        }
         internal StoreContext()
         {
         }
@@ -29,7 +36,11 @@ namespace SpyStore_HOL.DAL.EF
                 @"Server=(localdb)\mssqllocaldb;Database=SpyStore_HOL2;Trusted_Connection=True;MultipleActiveResultSets=true;";
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(connectionString);
+                //optionsBuilder.UseSqlServer(connectionString);
+                optionsBuilder
+                    .UseSqlServer(connectionString,
+                        options=>options.EnableRetryOnFailure())
+                    .ConfigureWarnings(warnings=>warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
