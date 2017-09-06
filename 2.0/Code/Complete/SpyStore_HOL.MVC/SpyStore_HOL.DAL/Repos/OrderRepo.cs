@@ -31,7 +31,7 @@ namespace SpyStore_HOL.DAL.Repos
                     Id = x.Id,
                     CustomerId = customerId,
                     OrderDate = x.OrderDate,
-                    //OrderTotal = x.OrderTotal,
+                    OrderTotal = x.OrderTotal,
                     ShipDate = x.ShipDate,
                     OrderDetails = _orderDetailRepo.GetSingleOrderWithDetails(orderId).ToList()
                 })

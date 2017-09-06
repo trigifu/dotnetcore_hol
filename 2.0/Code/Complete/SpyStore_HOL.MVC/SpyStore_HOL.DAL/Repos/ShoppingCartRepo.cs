@@ -107,10 +107,10 @@ namespace SpyStore_HOL.DAL.Repos
         public IEnumerable<CartRecordWithProductInfo> GetShoppingCartRecords(
             int customerId)
             => Table
-            .Where(x => x.CustomerId == customerId)
-            .Include(x => x.Product)
-            .ThenInclude(p => p.Category)
-            .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category))
-            .OrderBy(x => x.ModelName);
+                .Where(x => x.CustomerId == customerId)
+                .Include(x => x.Product)
+                .ThenInclude(p => p.Category)
+                .OrderBy(x => x.Product.ModelName)
+                .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category));
     }
 }
