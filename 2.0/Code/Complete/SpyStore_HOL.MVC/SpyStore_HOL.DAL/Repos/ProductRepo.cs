@@ -12,11 +12,11 @@ namespace SpyStore_HOL.DAL.Repos
 {
     public class ProductRepo : RepoBase<Product>, IProductRepo
     {
-        public ProductRepo(DbContextOptions<StoreContext> options) : base(options)
+        public ProductRepo() : base()
         {
         }
 
-        public ProductRepo() : base()
+        public ProductRepo(StoreContext context) : base(context)
         {
         }
 

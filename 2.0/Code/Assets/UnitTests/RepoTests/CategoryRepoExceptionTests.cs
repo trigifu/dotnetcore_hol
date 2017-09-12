@@ -49,21 +49,21 @@ namespace SpyStore_HOL.Tests.RepoTests
             var ex = Assert.Throws<DbUpdateConcurrencyException>(() => _repo.Delete(category.Id, category.TimeStamp));
         }
 
-        [Fact]
-        public void ShouldThrowRetryExeptionWhenCantConnect()
-        {
-            var contextOptionsBuilder = new DbContextOptionsBuilder<StoreContext>();
-            var connectionString =
-                @"Server=(localdb)\mssqllocaldb;Database=SpyStore;user id=foo;password=bar;MultipleActiveResultSets=true;";
-            //contextOptionsBuilder.UseSqlServer(connectionString, 
-            //    o => o.EnableRetryOnFailure(2,new TimeSpan(0,0,0,0,100),new Collection<int>{ -2146232060 }));
-            contextOptionsBuilder.UseSqlServer(connectionString,
-                options => options.ExecutionStrategy(c => new MyExecutionStrategy(c, 5, new TimeSpan(0, 0, 0, 0, 30))));
+        //[Fact]
+        //public void ShouldThrowRetryExeptionWhenCantConnect()
+        //{
+        //    var contextOptionsBuilder = new DbContextOptionsBuilder<StoreContext>();
+        //    var connectionString =
+        //        @"Server=(localdb)\mssqllocaldb;Database=SpyStore;user id=foo;password=bar;MultipleActiveResultSets=true;";
+        //    //contextOptionsBuilder.UseSqlServer(connectionString, 
+        //    //    o => o.EnableRetryOnFailure(2,new TimeSpan(0,0,0,0,100),new Collection<int>{ -2146232060 }));
+        //    contextOptionsBuilder.UseSqlServer(connectionString,
+        //        options => options.ExecutionStrategy(c => new MyExecutionStrategy(c, 5, new TimeSpan(0, 0, 0, 0, 30))));
 
-            var repo = new CategoryRepo(contextOptionsBuilder.Options);
-            var category = new Category {CategoryName = "Foo"};
-            var ex = Assert.Throws<RetryLimitExceededException>(()=> repo.Add(category));
-        }
+        //    var repo = new CategoryRepo(contextOptionsBuilder.Options);
+        //    var category = new Category {CategoryName = "Foo"};
+        //    var ex = Assert.Throws<RetryLimitExceededException>(()=> repo.Add(category));
+        //}
 
     }
 }

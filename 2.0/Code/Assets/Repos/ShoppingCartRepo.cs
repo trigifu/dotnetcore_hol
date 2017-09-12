@@ -17,12 +17,11 @@ namespace SpyStore_HOL.DAL.Repos
     {
         private readonly IProductRepo _productRepo;
 
-        public ShoppingCartRepo(DbContextOptions<StoreContext> options, IProductRepo productRepo) : base(options)
+        public ShoppingCartRepo(IProductRepo productRepo) : base()
         {
-            _productRepo = productRepo;
         }
 
-        public ShoppingCartRepo(IProductRepo productRepo) : base()
+        public ShoppingCartRepo(StoreContext context, IProductRepo productRepo) : base(context)
         {
             _productRepo = productRepo;
         }
@@ -107,10 +106,10 @@ namespace SpyStore_HOL.DAL.Repos
         public IEnumerable<CartRecordWithProductInfo> GetShoppingCartRecords(
             int customerId)
             => Table
-            .Where(x => x.CustomerId == customerId)
-            .Include(x => x.Product)
-            .ThenInclude(p => p.Category)
-            .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category))
-            .OrderBy(x => x.ModelName);
+                .Where(x => x.CustomerId == customerId)
+                .Include(x => x.Product)
+                .ThenInclude(p => p.Category)
+                .OrderBy(x => x.Product.ModelName)
+                .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category));
     }
 }

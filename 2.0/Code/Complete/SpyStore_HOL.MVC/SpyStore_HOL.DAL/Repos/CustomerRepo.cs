@@ -10,10 +10,11 @@ namespace SpyStore_HOL.DAL.Repos
 {
     public class CustomerRepo : RepoBase<Customer>, ICustomerRepo
     {
-        public CustomerRepo(DbContextOptions<StoreContext> options) : base(options)
+        public CustomerRepo() : base()
         {
         }
-        public CustomerRepo() : base()
+
+        public CustomerRepo(StoreContext context) : base(context)
         {
         }
 

@@ -10,10 +10,10 @@ namespace SpyStore_HOL.DAL.Repos
 {
     public class CategoryRepo : RepoBase<Category>, ICategoryRepo
     {
-        public CategoryRepo(DbContextOptions<StoreContext> options) : base(options)
+        public CategoryRepo()
         {
         }
-        public CategoryRepo()
+        public CategoryRepo(StoreContext context):base(context)
         {
         }
         public override IEnumerable<Category> GetAll() 

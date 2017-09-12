@@ -24,11 +24,6 @@ namespace SpyStore_HOL.DAL.Repos.Base
         {
             _disposeContext = true;
         }
-        protected RepoBase(DbContextOptions<StoreContext> options) 
-            : this(new StoreContext(options))
-        {
-            _disposeContext = true;
-        }
         protected RepoBase(StoreContext context)
         {
             Db = context;

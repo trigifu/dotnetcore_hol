@@ -11,10 +11,11 @@ namespace SpyStore_HOL.DAL.Repos
 {
     public class OrderDetailRepo : RepoBase<OrderDetail>, IOrderDetailRepo
     {
-        public OrderDetailRepo(DbContextOptions<StoreContext> options) : base(options)
+        public OrderDetailRepo()
         {
         }
-        public OrderDetailRepo()
+
+        public OrderDetailRepo(StoreContext context) : base(context)
         {
         }
 

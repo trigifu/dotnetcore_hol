@@ -12,11 +12,12 @@ namespace SpyStore_HOL.DAL.Repos
     public class OrderRepo : RepoBase<Order>, IOrderRepo
     {
         private readonly IOrderDetailRepo _orderDetailRepo;
-        public OrderRepo(DbContextOptions<StoreContext> options, IOrderDetailRepo orderDetailRepo) : base(options)
+        public OrderRepo(IOrderDetailRepo orderDetailRepo)
         {
             _orderDetailRepo = orderDetailRepo;
         }
-        public OrderRepo(IOrderDetailRepo orderDetailRepo)
+
+        public OrderRepo(StoreContext context, IOrderDetailRepo orderDetailRepo) : base(context)
         {
             _orderDetailRepo = orderDetailRepo;
         }
@@ -31,7 +32,7 @@ namespace SpyStore_HOL.DAL.Repos
                     Id = x.Id,
                     CustomerId = customerId,
                     OrderDate = x.OrderDate,
-                    //OrderTotal = x.OrderTotal,
+                    OrderTotal = x.OrderTotal,
                     ShipDate = x.ShipDate,
                     OrderDetails = _orderDetailRepo.GetSingleOrderWithDetails(orderId).ToList()
                 })

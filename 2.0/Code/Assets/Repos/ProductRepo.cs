@@ -12,11 +12,11 @@ namespace SpyStore_HOL.DAL.Repos
 {
     public class ProductRepo : RepoBase<Product>, IProductRepo
     {
-        public ProductRepo(DbContextOptions<StoreContext> options) : base(options)
+        public ProductRepo() : base()
         {
         }
 
-        public ProductRepo() : base()
+        public ProductRepo(StoreContext context) : base(context)
         {
         }
 
@@ -49,16 +49,16 @@ namespace SpyStore_HOL.DAL.Repos
             => Table
                 .Where(p => p.CategoryId == id)
                 .Include(p => p.Category)
-                .Select(item => GetRecord(item, item.Category))
                 .OrderBy(x => x.ModelName)
+                .Select(item => GetRecord(item, item.Category))
                 .ToList();
 
         public IList<ProductAndCategoryBase> GetFeaturedWithCategoryName()
             => Table
                 .Where(p => p.IsFeatured)
                 .Include(p => p.Category)
-                .Select(item => GetRecord(item, item.Category))
                 .OrderBy(x => x.ModelName)
+                .Select(item => GetRecord(item, item.Category))
                 .ToList();
 
         public ProductAndCategoryBase GetOneWithCategoryName(int id)
@@ -73,8 +73,8 @@ namespace SpyStore_HOL.DAL.Repos
                 .Where(p => Functions.Like(p.Description, $"%{searchString}%")
                 || Functions.Like(p.ModelName, $"%{searchString}%"))
                 .Include(p => p.Category)
-                .Select(item => GetRecord(item, item.Category))
                 .OrderBy(x => x.ModelName)
+                .Select(item => GetRecord(item, item.Category))
                 .ToList();
     }
 }

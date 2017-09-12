@@ -24,11 +24,6 @@ namespace SpyStore_HOL.DAL.Repos.Base
         {
             _disposeContext = true;
         }
-        protected RepoBase(DbContextOptions<StoreContext> options) 
-            : this(new StoreContext(options))
-        {
-            _disposeContext = true;
-        }
         protected RepoBase(StoreContext context)
         {
             Db = context;
@@ -39,7 +34,7 @@ namespace SpyStore_HOL.DAL.Repos.Base
         public bool HasChanges => Db.ChangeTracker.HasChanges();
 
         public bool Any() => Table.Any();
-        public bool Any(Expression<Func<T, bool>> where) => Table.Any(@where);
+        public bool Any(Expression<Func<T, bool>> where) => Table.Any(where);
 
         public virtual IEnumerable<T> GetAll() => Table;
         public IEnumerable<T> GetAll<TIncludeField>(Expression<Func<T, TIncludeField>> include)

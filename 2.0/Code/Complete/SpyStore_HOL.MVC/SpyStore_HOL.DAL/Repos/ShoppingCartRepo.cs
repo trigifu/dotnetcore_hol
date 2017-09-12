@@ -17,12 +17,11 @@ namespace SpyStore_HOL.DAL.Repos
     {
         private readonly IProductRepo _productRepo;
 
-        public ShoppingCartRepo(DbContextOptions<StoreContext> options, IProductRepo productRepo) : base(options)
+        public ShoppingCartRepo(IProductRepo productRepo) : base()
         {
-            _productRepo = productRepo;
         }
 
-        public ShoppingCartRepo(IProductRepo productRepo) : base()
+        public ShoppingCartRepo(StoreContext context, IProductRepo productRepo) : base(context)
         {
             _productRepo = productRepo;
         }
