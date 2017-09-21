@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using SpyStore_HOL.DAL.EF;
 using SpyStore_HOL.DAL.EF.Initialization;
 using SpyStore_HOL.DAL.Repos;
