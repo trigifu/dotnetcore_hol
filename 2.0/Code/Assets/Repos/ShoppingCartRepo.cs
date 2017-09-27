@@ -19,6 +19,7 @@ namespace SpyStore_HOL.DAL.Repos
 
         public ShoppingCartRepo(IProductRepo productRepo) : base()
         {
+            _productRepo = productRepo;
         }
 
         public ShoppingCartRepo(StoreContext context, IProductRepo productRepo) : base(context)
