@@ -165,8 +165,6 @@ namespace SpyStore_HOL.DAL.Repos.Base
                 //Should handle intelligently
                 Console.WriteLine(ex);
                 throw;
-                //-2146232060
-                //throw new Exception($"{ex.HResult}");
             }
         }
 
