@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -32,8 +33,9 @@ namespace SpyStore_HOL.MVC
             services.AddMvc();
             services.AddSingleton(_ => Configuration);
             services.AddDbContext<StoreContext>(
-                options => options.UseSqlServer(
-                    Configuration.GetConnectionString("SpyStore")));
+                options => options.UseSqlServer(Configuration.GetConnectionString("SpyStore"),
+                o=>o.EnableRetryOnFailure())
+                .ConfigureWarnings(warnings=>warnings.Throw(RelationalEventId.QueryClientEvaluationWarning)));
             services.AddScoped<ICategoryRepo, CategoryRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<ICustomerRepo, CustomerRepo>();
