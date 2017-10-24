@@ -9,6 +9,7 @@ using SpyStore_HOL.DAL.EF;
 using SpyStore_HOL.DAL.EF.Initialization;
 using SpyStore_HOL.DAL.Repos;
 using SpyStore_HOL.DAL.Repos.Interfaces;
+using SpyStore_HOL.MVC.Support;
 
 namespace SpyStore_HOL.MVC
 {
@@ -35,6 +36,7 @@ namespace SpyStore_HOL.MVC
             services.AddScoped<IShoppingCartRepo, ShoppingCartRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IOrderDetailRepo, OrderDetailRepo>();
+            services.Configure<CustomSettings>(Configuration.GetSection("CustomSettings"));
 
         }
 

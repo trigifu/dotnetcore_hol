@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SpyStore_HOL.DAL.Repos.Interfaces;
 using SpyStore_HOL.MVC.Controllers.Base;
+using SpyStore_HOL.MVC.Support;
 
 namespace SpyStore_HOL.MVC.Controllers
 {
@@ -9,11 +12,16 @@ namespace SpyStore_HOL.MVC.Controllers
         private readonly IProductRepo _productRepo;
         private readonly ICategoryRepo _categoryRepo;
 
-        public ProductsController(IProductRepo productRepo, ICategoryRepo categoryRepo)
+        private readonly CustomSettings _settings;
+
+        public ProductsController(IProductRepo productRepo, ICategoryRepo categoryRepo, 
+            IOptionsSnapshot<CustomSettings> settings,ILogger<ProductsController> logger)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
+            Logger = logger;
         }
+        public ILogger Logger { get; }
 
         [HttpGet]
         public ActionResult Error()
@@ -24,6 +32,7 @@ namespace SpyStore_HOL.MVC.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            Logger.LogInformation(1, "Enter About");
             return RedirectToAction(nameof(Featured));
         }
 

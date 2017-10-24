@@ -21,7 +21,7 @@ namespace SpyStore_HOL.MVC
             //https://joonasw.net/view/aspnet-core-2-configuration-changes
             //https://github.com/aspnet/MetaPackages/blob/dev/src/Microsoft.AspNetCore/WebHost.cs
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://*:50794/")
+                //.UseUrls("http://*:50794/")
                 .UseStartup<Startup>()
                 .Build();
 /*
