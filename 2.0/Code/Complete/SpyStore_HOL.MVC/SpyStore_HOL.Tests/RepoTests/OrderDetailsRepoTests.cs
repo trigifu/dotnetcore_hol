@@ -14,7 +14,6 @@ namespace SpyStore_HOL.Tests.RepoTests
         public OrderDetailRepoTests()
         {
             _repo = new OrderDetailRepo();
-            StoreDataInitializer.ClearData(_repo.Context);
             StoreDataInitializer.InitializeData(_repo.Context);
 
         }

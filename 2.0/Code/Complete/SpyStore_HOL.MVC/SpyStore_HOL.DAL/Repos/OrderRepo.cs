@@ -23,7 +23,8 @@ namespace SpyStore_HOL.DAL.Repos
         }
 
         public IList<Order> GetOrderHistory(int customerId)
-            => GetSome(x => x.CustomerId == customerId).ToList();
+            => Table.Where(x => x.CustomerId == customerId).ToList();
+
         public OrderWithDetailsAndProductInfo GetOneWithDetails(int customerId, int orderId)
             => Table
                 .Where(x => x.CustomerId == customerId && x.Id == orderId)
@@ -37,6 +38,7 @@ namespace SpyStore_HOL.DAL.Repos
                     OrderDetails = _orderDetailRepo.GetSingleOrderWithDetails(orderId).ToList()
                 })
             .FirstOrDefault();
+
     }
 }
 

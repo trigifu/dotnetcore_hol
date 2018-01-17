@@ -713,7 +713,6 @@ namespace SpyStore_HOL.DAL.EF.Initialization
                 Customer = customer,
                 OrderDate = DateTime.Now.Subtract(new TimeSpan(20, 0, 0, 0)),
                 ShipDate = DateTime.Now.Subtract(new TimeSpan(5, 0, 0, 0)),
-                OrderDetails = GetOrderDetails(context)
             }
         };
         public static List<OrderDetail> GetOrderDetails(

@@ -25,7 +25,6 @@ namespace SpyStore_HOL.MVC.Controllers
             ViewBag.Title = "Order History";
             ViewBag.Header = "Order History";
             IList<Order> orders = _orderRepo.GetOrderHistory(customerId).ToList();
-            if (orders == null) return NotFound();
             return View(orders);
         }
 

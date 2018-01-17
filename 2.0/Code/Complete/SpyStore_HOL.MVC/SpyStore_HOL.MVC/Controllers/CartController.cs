@@ -86,7 +86,7 @@ namespace SpyStore_HOL.MVC.Controllers
                 cartRecord.CustomerId = item.CustomerId ?? 0;
                 _shoppingCartRepo.Add(cartRecord);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "There was an error adding the item to the cart.");
                 return View(item);
@@ -110,7 +110,7 @@ namespace SpyStore_HOL.MVC.Controllers
                 item = mapper.Map<CartRecordViewModel>(updatedItem);
                 return PartialView(item);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred updating the cart.  Please reload the page and try again.");
                 return PartialView(item);

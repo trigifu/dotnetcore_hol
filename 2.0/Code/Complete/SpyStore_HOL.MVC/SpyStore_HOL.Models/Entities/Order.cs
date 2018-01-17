@@ -17,7 +17,9 @@ namespace SpyStore_HOL.Models.Entities
         [DataType(DataType.Date)]
         [Display(Name = "Date Shipped")]
         public DateTime ShipDate { get; set; }
+
         [Display(Name = "Total")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public decimal? OrderTotal { get; set; }
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }

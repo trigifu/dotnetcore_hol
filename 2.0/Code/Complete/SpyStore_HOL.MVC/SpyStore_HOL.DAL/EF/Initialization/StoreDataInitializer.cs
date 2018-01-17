@@ -64,6 +64,13 @@ namespace SpyStore_HOL.DAL.EF.Initialization
                     context.Orders.AddRange(StoreSampleData.GetOrders(customer, context));
                     context.SaveChanges();
                 }
+
+                if (!context.OrderDetails.Any())
+                {
+                    var order = context.Orders.First();
+                    context.OrderDetails.AddRange(StoreSampleData.GetOrderDetails(order,context));
+                    context.SaveChanges();
+                }
                 if (!context.ShoppingCartRecords.Any())
                 {
                     context.ShoppingCartRecords.AddRange(

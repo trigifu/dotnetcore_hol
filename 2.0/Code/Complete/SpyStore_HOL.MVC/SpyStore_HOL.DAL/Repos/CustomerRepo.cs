@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 using SpyStore_HOL.DAL.EF;
 using SpyStore_HOL.DAL.Repos.Base;
 using SpyStore_HOL.DAL.Repos.Interfaces;
@@ -18,11 +19,11 @@ namespace SpyStore_HOL.DAL.Repos
         {
         }
 
-        public override IEnumerable<Customer> GetAll()
-            => Table.OrderBy(x => x.FullName);
+        public override IList<Customer> GetAll()
+            => Table.OrderBy(x => x.FullName).ToList();
 
-        public override IEnumerable<Customer> GetRange(int skip, int take)
-            => GetRange(Table.OrderBy(x => x.FullName), skip, take);
+        public IEnumerable<Customer> GetRange(int skip, int take)
+            => Table.OrderBy(x => x.FullName).Skip(skip).Take(take);
 
     }
 }

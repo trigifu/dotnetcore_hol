@@ -14,7 +14,6 @@ namespace SpyStore_HOL.Tests.RepoTests
         public OrderRepoTests()
         {
             _repo = new OrderRepo(new OrderDetailRepo());
-            StoreDataInitializer.ClearData(_repo.Context);
             StoreDataInitializer.InitializeData(_repo.Context);
 
         }
@@ -28,7 +27,7 @@ namespace SpyStore_HOL.Tests.RepoTests
         public void ShouldGetAllOrders()
         {
             var orders = _repo.GetAll().ToList();
-            Assert.Equal(1,orders.Count());
+            Assert.Single(orders);
         }
     }
 }

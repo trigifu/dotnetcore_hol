@@ -23,12 +23,15 @@ namespace SpyStore_HOL.MVC.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var cats = _categoryRepo.GetAll();
-            if (cats == null)
+            return await Task.Run<IViewComponentResult>(() =>
             {
-                return new ContentViewComponentResult("There was an error getting the categories");
-            }
-            return View("MenuView", cats);
+                var cats = _categoryRepo.GetAll();
+                if (cats == null)
+                {
+                    return new ContentViewComponentResult("There was an error getting the categories");
+                }
+                return View("MenuView", cats);
+            });
         }
     }
 }

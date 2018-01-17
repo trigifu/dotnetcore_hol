@@ -14,7 +14,6 @@ namespace SpyStore_HOL.Tests.RepoTests
         public ProductRepoTests()
         {
             _repo = new ProductRepo();
-            StoreDataInitializer.ClearData(_repo.Context);
             StoreDataInitializer.InitializeData(_repo.Context);
 
         }

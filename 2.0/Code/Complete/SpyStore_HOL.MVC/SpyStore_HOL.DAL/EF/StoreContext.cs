@@ -15,9 +15,6 @@ namespace SpyStore_HOL.DAL.EF
             //code in here doesn't matter
             throw new Exception();
         }
-        internal StoreContext()
-        {
-        }
         public StoreContext(DbContextOptions options) : base(options)
         {
             try
@@ -32,11 +29,10 @@ namespace SpyStore_HOL.DAL.EF
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString =
-                @"Server=(localdb)\mssqllocaldb;Database=SpyStore_HOL2;Trusted_Connection=True;MultipleActiveResultSets=true;";
             if (!optionsBuilder.IsConfigured)
             {
-                //optionsBuilder.UseSqlServer(connectionString);
+                var connectionString =
+                    @"Server=(localdb)\mssqllocaldb;Database=SpyStore_HOL2;Trusted_Connection=True;MultipleActiveResultSets=true;";
                 optionsBuilder
                     .UseSqlServer(connectionString,
                         options=>options.EnableRetryOnFailure())

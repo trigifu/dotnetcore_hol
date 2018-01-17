@@ -16,10 +16,10 @@ namespace SpyStore_HOL.DAL.Repos
         public CategoryRepo(StoreContext context):base(context)
         {
         }
-        public override IEnumerable<Category> GetAll() 
-            => Table.OrderBy(x => x.CategoryName);
+        public override IList<Category> GetAll() 
+            => Table.OrderBy(x => x.CategoryName).ToList();
 
-        public override IEnumerable<Category> GetRange(int skip, int take) 
-            => GetRange(Table.OrderBy(x => x.CategoryName),skip,take);
+        public IEnumerable<Category> GetRange(int skip, int take) 
+            => Table.OrderBy(x => x.CategoryName).Skip(skip).Take(take);
     }
 }

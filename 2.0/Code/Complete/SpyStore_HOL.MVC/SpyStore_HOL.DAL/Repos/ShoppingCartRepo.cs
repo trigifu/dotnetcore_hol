@@ -27,10 +27,10 @@ namespace SpyStore_HOL.DAL.Repos
             _productRepo = productRepo;
         }
 
-        public override IEnumerable<ShoppingCartRecord> GetAll()
-            => Table.OrderByDescending(x => x.DateCreated);
-        public override IEnumerable<ShoppingCartRecord> GetRange(int skip, int take)
-            => GetRange(Table.OrderByDescending(x => x.DateCreated), skip, take);
+        public override IList<ShoppingCartRecord> GetAll()
+            => Table.OrderByDescending(x => x.DateCreated).ToList();
+        public IEnumerable<ShoppingCartRecord> GetRange(int skip, int take)
+            => Table.OrderByDescending(x => x.DateCreated).Skip(skip).Take(take);
 
         public ShoppingCartRecord Find(int customerId, int productId)
         {

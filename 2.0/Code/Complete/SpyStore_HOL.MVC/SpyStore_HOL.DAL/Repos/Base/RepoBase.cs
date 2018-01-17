@@ -20,7 +20,7 @@ namespace SpyStore_HOL.DAL.Repos.Base
         protected DbSet<T> Table;
         public StoreContext Context => Db;
 
-        protected RepoBase() : this(new StoreContext())
+        protected RepoBase() : this(new StoreContextFactory().CreateDbContext(new string[0]))
         {
             _disposeContext = true;
         }
@@ -31,61 +31,8 @@ namespace SpyStore_HOL.DAL.Repos.Base
         }
 
         public int Count => Table.Count();
-        public bool HasChanges => Db.ChangeTracker.HasChanges();
-
-        public bool Any() => Table.Any();
-        public bool Any(Expression<Func<T, bool>> where) => Table.Any(where);
-
-        public virtual IEnumerable<T> GetAll() => Table;
-        public IEnumerable<T> GetAll<TIncludeField>(Expression<Func<T, TIncludeField>> include)
-            => Table.Include(include);
-        public IEnumerable<T> GetAll<TSortField>(Expression<Func<T, TSortField>> orderBy, bool ascending)
-            => ascending ? Table.OrderBy(orderBy) : Table.OrderByDescending(orderBy);
-        public IEnumerable<T> GetAll<TIncludeField, TSortField>(
-            Expression<Func<T, TIncludeField>> include, Expression<Func<T, TSortField>> orderBy, bool ascending)
-            => ascending ? Table.Include(include).OrderBy(orderBy) : Table.Include(include).OrderByDescending(orderBy);
-
-        public T First() => Table.FirstOrDefault();
-        public T First(Expression<Func<T, bool>> where) => Table.FirstOrDefault(where);
-        public T First<TIncludeField>(Expression<Func<T, bool>> where, Expression<Func<T, TIncludeField>> include) 
-            => Table.Where(where).Include(include).FirstOrDefault();
-
-        //return Table.SingleOrDefault(x => x.Id == id) mixed mode evaluation;
         public T Find(int id) => Table.Find(id);
-
-        public T Find(Expression<Func<T, bool>> where) 
-            => Table.Where(where).FirstOrDefault();
-
-        public T Find<TIncludeField>(Expression<Func<T, bool>> where, 
-            Expression<Func<T, TIncludeField>> include) 
-            => Table.Where(@where).Include(include).FirstOrDefault();
-
-        public IEnumerable<T> GetSome(Expression<Func<T, bool>> where) 
-            => Table.Where(where);
-
-        public IEnumerable<T> GetSome<TIncludeField>(Expression<Func<T, bool>> where, 
-            Expression<Func<T, TIncludeField>> include) 
-            => Table.Where(where).Include(include);
-
-        public IEnumerable<T> GetSome<TSortField>(
-            Expression<Func<T, bool>> where, Expression<Func<T, TSortField>> orderBy, bool ascending)
-            => ascending ? Table.Where(where).OrderBy(orderBy) : Table.Where(where).OrderByDescending(orderBy);
-
-        public IEnumerable<T> GetSome<TIncludeField, TSortField>(
-            Expression<Func<T, bool>> where, Expression<Func<T, TIncludeField>> include,
-            Expression<Func<T, TSortField>> orderBy, bool ascending)
-            => ascending ?
-                Table.Where(where).OrderBy(orderBy).Include(include) :
-                Table.Where(where).OrderByDescending(orderBy).Include(include);
-
-        public IEnumerable<T> FromSql(string sqlString)
-            => Table.FromSql(sqlString);
-
-        public virtual IEnumerable<T> GetRange(int skip, int take)
-            => GetRange(Table, skip, take);
-        public IEnumerable<T> GetRange(IQueryable<T> query, int skip, int take)
-            => query.Skip(skip).Take(take);
-
+        public virtual IList<T> GetAll() => Table.ToList();
         public virtual int Add(T entity, bool persist = true)
         {
             Table.Add(entity);
@@ -124,7 +71,6 @@ namespace SpyStore_HOL.DAL.Repos.Base
                     .FirstOrDefault(x => x.Id == id);
         }
 
-        //TODO: Check For Cascade Delete
         public int Delete(int id, byte[] timeStamp, bool persist = true)
         {
             var entry = GetEntryFromChangeTracker(id);
@@ -167,45 +113,12 @@ namespace SpyStore_HOL.DAL.Repos.Base
                 throw;
             }
         }
-
-        public void BeginTransaction()
-        {
-            _transaction = Context.Database.BeginTransaction(IsolationLevel.RepeatableRead);
-        }
-
-        public void CommitTransaction()
-        {
-            _transaction.Commit();
-        }
-
-        public void RollbackTransaction()
-        {
-            _transaction.Rollback();
-        }
-
-        bool _disposed = false;
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // Free any other managed objects here. 
-                //
-            }
             if (_disposeContext)
             {
                 Db.Dispose();
             }
-            _disposed = true;
         }
     }
 }

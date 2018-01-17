@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.EF;
 using SpyStore_HOL.DAL.EF;
@@ -20,11 +21,11 @@ namespace SpyStore_HOL.DAL.Repos
         {
         }
 
-        public override IEnumerable<Product> GetAll()
-            => Table.OrderBy(x => x.ModelName);
+        public override IList<Product> GetAll()
+            => Table.OrderBy(x => x.ModelName).ToList();
 
-        public override IEnumerable<Product> GetRange(int skip, int take)
-            => GetRange(Table.OrderBy(x => x.ModelName), skip, take);
+        public IEnumerable<Product> GetRange(int skip, int take)
+            => Table.OrderBy(x => x.ModelName).Skip(skip).Take(take);
 
         internal ProductAndCategoryBase GetRecord(Product p, Category c)
             => new ProductAndCategoryBase()
@@ -66,7 +67,7 @@ namespace SpyStore_HOL.DAL.Repos
                 .Where(p => p.Id == id)
                 .Include(p => p.Category)
                 .Select(item => GetRecord(item, item.Category))
-                .SingleOrDefault();
+                .FirstOrDefault();
 
         public IList<ProductAndCategoryBase> Search(string searchString)
             => Table

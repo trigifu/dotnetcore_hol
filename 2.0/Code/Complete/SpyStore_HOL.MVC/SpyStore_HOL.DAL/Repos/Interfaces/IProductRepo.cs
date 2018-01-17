@@ -11,5 +11,6 @@ namespace SpyStore_HOL.DAL.Repos.Interfaces
         IList<ProductAndCategoryBase> GetProductsForCategory(int id);
         IList<ProductAndCategoryBase> GetFeaturedWithCategoryName();
         ProductAndCategoryBase GetOneWithCategoryName(int id);
+
     }
 }
