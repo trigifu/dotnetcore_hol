@@ -3,18 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
-using SpyStore_HOL.DAL.EF;
+using SpyStore_HOL.DAL.EfStructures;
 using System;
 
-namespace SpyStore_HOL.DAL.EF.Migrations
+namespace SpyStore_HOL.DAL.EfStructures.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20170826050115_Initial")]
-    partial class Initial
+    partial class StoreContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,6 +75,11 @@ namespace SpyStore_HOL.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime")
                         .HasDefaultValueSql("getdate()");
+
+                    b.Property<decimal?>("OrderTotal")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("money")
+                        .HasComputedColumnSql("Store.GetOrderTotal([Id])");
 
                     b.Property<DateTime>("ShipDate")
                         .ValueGeneratedOnAdd()

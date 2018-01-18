@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SpyStore_HOL.DAL.EF;
+using SpyStore_HOL.DAL.EfStructures;
 using SpyStore_HOL.DAL.Exceptions;
 using SpyStore_HOL.DAL.Repos.Base;
 using SpyStore_HOL.DAL.Repos.Interfaces;

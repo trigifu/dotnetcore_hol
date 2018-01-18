@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SpyStore_HOL.Models.Entities;
 
-namespace SpyStore_HOL.DAL.EF.Initialization
+namespace SpyStore_HOL.DAL.EfStructures.Initialization
 {
     public static class StoreSampleData
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SpyStore_HOL.DAL.EF.Initialization;
+using SpyStore_HOL.DAL.EfStructures.Initialization;
 using SpyStore_HOL.DAL.Exceptions;
 using SpyStore_HOL.DAL.Repos;
 using SpyStore_HOL.Models.Entities;

@@ -2,8 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.EF;
-using SpyStore_HOL.DAL.EF;
+using SpyStore_HOL.DAL.EfStructures;
 using SpyStore_HOL.DAL.Repos.Base;
 using SpyStore_HOL.DAL.Repos.Interfaces;
 using SpyStore_HOL.Models.Entities;
@@ -23,9 +22,6 @@ namespace SpyStore_HOL.DAL.Repos
 
         public override IList<Product> GetAll()
             => Table.OrderBy(x => x.ModelName).ToList();
-
-        public IEnumerable<Product> GetRange(int skip, int take)
-            => Table.OrderBy(x => x.ModelName).Skip(skip).Take(take);
 
         internal ProductAndCategoryBase GetRecord(Product p, Category c)
             => new ProductAndCategoryBase()
@@ -71,8 +67,8 @@ namespace SpyStore_HOL.DAL.Repos
 
         public IList<ProductAndCategoryBase> Search(string searchString)
             => Table
-                .Where(p => Functions.Like(p.Description, $"%{searchString}%")
-                || Functions.Like(p.ModelName, $"%{searchString}%"))
+                .Where(p => EF.Functions.Like(p.Description, $"%{searchString}%")
+                || EF.Functions.Like(p.ModelName, $"%{searchString}%"))
                 .Include(p => p.Category)
                 .OrderBy(x => x.ModelName)
                 .Select(item => GetRecord(item, item.Category))

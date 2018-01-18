@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace SpyStore_HOL.DAL.EF.Migrations
+namespace SpyStore_HOL.DAL.EfStructures.Migrations
 {
     public partial class Initial : Migration
     {

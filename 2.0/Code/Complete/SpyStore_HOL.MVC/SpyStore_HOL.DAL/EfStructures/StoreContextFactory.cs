@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace SpyStore_HOL.DAL.EF
+namespace SpyStore_HOL.DAL.EfStructures
 {
     public class StoreContextFactory : IDesignTimeDbContextFactory<StoreContext>
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using SpyStore_HOL.Models.Entities.Base;
 
 namespace SpyStore_HOL.Models.Entities
@@ -10,7 +11,6 @@ namespace SpyStore_HOL.Models.Entities
     [Table("Orders", Schema = "Store")]
     public class Order : EntityBase
     {
-        public int CustomerId { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Date Ordered")]
         public DateTime OrderDate { get; set; }
@@ -21,9 +21,10 @@ namespace SpyStore_HOL.Models.Entities
         [Display(Name = "Total")]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public decimal? OrderTotal { get; set; }
-        [ForeignKey("CustomerId")]
+        public int CustomerId { get; set; }
+        [ForeignKey(nameof(CustomerId))]
         public Customer Customer { get; set; }
-        [InverseProperty("Order")]
+        [InverseProperty(nameof(OrderDetail.Order))]
         public List<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
     }
 }

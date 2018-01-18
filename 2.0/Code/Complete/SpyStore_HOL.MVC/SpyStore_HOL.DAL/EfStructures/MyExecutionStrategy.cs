@@ -1,8 +1,7 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace SpyStore_HOL.DAL.EF
+namespace SpyStore_HOL.DAL.EfStructures
 {
     public class MyExecutionStrategy : ExecutionStrategy
     {

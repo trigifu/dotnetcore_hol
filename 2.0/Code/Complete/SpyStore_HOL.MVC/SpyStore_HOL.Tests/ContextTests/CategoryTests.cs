@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SpyStore_HOL.DAL.EF;
+using SpyStore_HOL.DAL.EfStructures;
 using SpyStore_HOL.Models.Entities;
 using Xunit;
 

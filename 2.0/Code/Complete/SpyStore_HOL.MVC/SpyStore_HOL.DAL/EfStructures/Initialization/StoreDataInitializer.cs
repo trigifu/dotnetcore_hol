@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace SpyStore_HOL.DAL.EF.Initialization
+namespace SpyStore_HOL.DAL.EfStructures.Initialization
 {
     public static class StoreDataInitializer
     {

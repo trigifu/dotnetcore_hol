@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SpyStore_HOL.DAL.EF.Initialization;
+using SpyStore_HOL.DAL.EfStructures.Initialization;
 using SpyStore_HOL.DAL.Repos;
 using Xunit;
 
