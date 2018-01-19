@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using SpyStore_HOL.DAL.EF;
-using SpyStore_HOL.DAL.EF.Initialization;
+using SpyStore_HOL.DAL.EfStructures;
+using SpyStore_HOL.DAL.EfStructures.Initialization;
 using SpyStore_HOL.Models.Entities;
 using Xunit;
 
@@ -14,13 +14,15 @@ namespace SpyStore_HOL.Tests.ContextTests
 
         public OrderTests()
         {
-            _db = new StoreContext();
-            StoreDataInitializer.InitializeData(new StoreContext());
+            var storeContextFactory = new StoreContextFactory();
+            StoreDataInitializer.InitializeData(storeContextFactory.CreateDbContext(new string[0]));
+            _db = storeContextFactory.CreateDbContext(new string[0]);
+            
         }
 
         public void Dispose()
         {
-            //StoreDataInitializer.ClearData(new StoreContext());
+            StoreDataInitializer.ClearData(_db);
             _db.Dispose();
         }
 
@@ -28,25 +30,26 @@ namespace SpyStore_HOL.Tests.ContextTests
         public void ShouldGetOrderTotal()
         {
             var orders = _db.Orders.ToList();
-            Assert.Equal(4424.90M, orders[0]?.OrderTotal.Value);
+            Assert.Single(orders);
+            Assert.Equal(4424.90M, orders[0].OrderTotal ?? 0);
         }
 
         [Fact]
         public void ShouldGetOrderTotalWithFunction()
         {
             var order = _db.Orders.First(x => StoreContext.GetOrderTotal(x.Id) == 4424.90M);
-            Assert.Equal(4424.90M, order.OrderTotal.Value);
+            Assert.NotNull(order);
+            Assert.Equal(4424.90M, order.OrderTotal ?? 0);
         }
 
         [Fact]
         public void ShouldUpdateAnOrder()
         {
-            var order = _db.Orders.FirstOrDefault();
+            var order = _db.Orders.First();
             order.ShipDate = DateTime.Now;
             _db.SaveChanges();
-            order = _db.Orders.FirstOrDefault();
-            Assert.Equal(DateTime.Now.ToString("d"),
-                order.ShipDate.ToString("d"));
+            order = _db.Orders.First();
+            Assert.Equal(DateTime.Now.ToString("d"),order.ShipDate.ToString("d"));
         }
 
 
@@ -59,7 +62,7 @@ namespace SpyStore_HOL.Tests.ContextTests
             _db.SaveChanges();
 
             //Need to use a new DbContext to get the updated value
-            order = new StoreContext().Orders.FirstOrDefault();
+            order = new StoreContextFactory().CreateDbContext(new string[0]).Orders.FirstOrDefault();
             //order = _db.Orders.FirstOrDefault();
             Assert.Equal(4924.90M, order.OrderTotal);
         }

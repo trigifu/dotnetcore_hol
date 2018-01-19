@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using SpyStore_HOL.DAL.EF;
 using SpyStore_HOL.DAL.Repos;
 using SpyStore_HOL.Models.Entities;
 using Xunit;

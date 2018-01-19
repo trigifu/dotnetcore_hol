@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SpyStore_HOL.DAL.EF.Initialization;
+using SpyStore_HOL.DAL.EfStructures.Initialization;
 using SpyStore_HOL.DAL.Repos;
 using Xunit;
 
@@ -14,7 +14,6 @@ namespace SpyStore_HOL.Tests.RepoTests
         public ProductRepoTests()
         {
             _repo = new ProductRepo();
-            StoreDataInitializer.ClearData(_repo.Context);
             StoreDataInitializer.InitializeData(_repo.Context);
 
         }

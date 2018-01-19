@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SpyStore_HOL.DAL.EF;
+using SpyStore_HOL.DAL.EfStructures;
 using SpyStore_HOL.Models.Entities;
 using Xunit;
 
@@ -14,7 +14,7 @@ namespace SpyStore_HOL.Tests.ContextTests
 
         public CategoryTests()
         {
-            _db = new StoreContext();
+            _db = new StoreContextFactory().CreateDbContext(new string[0]);
             CleanDatabase();
         }
 
@@ -73,6 +73,7 @@ namespace SpyStore_HOL.Tests.ContextTests
             Assert.Equal("Bar", categories[0].CategoryName);
             Assert.Equal("Foo", categories[1].CategoryName);
         }
+
         [Fact]
         public void ShouldUpdateACategory()
         {
@@ -85,7 +86,7 @@ namespace SpyStore_HOL.Tests.ContextTests
             _db.SaveChanges();
             Assert.Equal(EntityState.Unchanged, _db.Entry(category).State);
             StoreContext context;
-            using (context = new StoreContext())
+            using (context = new StoreContextFactory().CreateDbContext(new string[0]))
             {
                 Assert.Equal("Bar", context.Categories.First().CategoryName);
             }
@@ -117,7 +118,7 @@ namespace SpyStore_HOL.Tests.ContextTests
             var category = new Category { CategoryName = "Foo" };
             _db.Categories.Add(category);
             _db.SaveChanges();
-            var context = new StoreContext();
+            var context = new StoreContextFactory().CreateDbContext(new string[0]);
             var catToDelete = new Category { Id = category.Id, TimeStamp = category.TimeStamp };
             context.Entry(catToDelete).State = EntityState.Deleted;
             var affected = context.SaveChanges();

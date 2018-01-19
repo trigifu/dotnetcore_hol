@@ -74,9 +74,9 @@ namespace SpyStore_HOL.Tests.RepoTests
                 new Category { CategoryName = "FooBar" }
             };
             _repo.AddRange(categories, false);
-            Assert.True(_repo.HasChanges);
+            Assert.True(_repo.Context.ChangeTracker.HasChanges());
             _repo.SaveChanges();
-            Assert.False(_repo.HasChanges);
+            Assert.False(_repo.Context.ChangeTracker.HasChanges());
         }
     }
 

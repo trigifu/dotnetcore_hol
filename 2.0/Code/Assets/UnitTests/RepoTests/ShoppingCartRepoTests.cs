@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using SpyStore_HOL.DAL.EF.Initialization;
+using SpyStore_HOL.DAL.EfStructures.Initialization;
 using SpyStore_HOL.DAL.Exceptions;
 using SpyStore_HOL.DAL.Repos;
 using SpyStore_HOL.Models.Entities;
@@ -17,13 +17,12 @@ namespace SpyStore_HOL.Tests.RepoTests
         public ShoppingCartRepoTests()
         {
             _repo = new ShoppingCartRepo(new ProductRepo());
-            StoreDataInitializer.ClearData(_repo.Context);
             StoreDataInitializer.InitializeData(_repo.Context);
 
         }
         public void Dispose()
         {
-            //StoreDataInitializer.ClearData(_repo.Context);
+            StoreDataInitializer.ClearData(_repo.Context);
             _repo.Dispose();
         }
 
@@ -55,7 +54,7 @@ namespace SpyStore_HOL.Tests.RepoTests
             };
             _repo.Add(item);
             var shoppingCartRecords = _repo.GetAll().ToList();
-            Assert.Equal(1,shoppingCartRecords.Count);
+            Assert.Single(shoppingCartRecords);
             Assert.Equal(2,shoppingCartRecords[0].Quantity);
         }
 
@@ -95,7 +94,7 @@ namespace SpyStore_HOL.Tests.RepoTests
             item.DateCreated = DateTime.Now;
             _repo.Update(item);
             var shoppingCartRecords = _repo.GetAll().ToList();
-            Assert.Equal(1,shoppingCartRecords.Count);
+            Assert.Single(shoppingCartRecords);
             Assert.Equal(5, shoppingCartRecords[0].Quantity);
         }
 
@@ -107,7 +106,7 @@ namespace SpyStore_HOL.Tests.RepoTests
             item.DateCreated = DateTime.Now;
             _repo.Update(item);
             var shoppingCartRecords = _repo.GetAll().ToList();
-            Assert.Equal(0, shoppingCartRecords.Count);
+            Assert.Empty(shoppingCartRecords);
         }
 
         [Fact]
@@ -118,7 +117,7 @@ namespace SpyStore_HOL.Tests.RepoTests
             item.DateCreated = DateTime.Now;
             _repo.Update(item);
             var shoppingCartRecords = _repo.GetAll().ToList();
-            Assert.Equal(0, shoppingCartRecords.Count);
+            Assert.Empty(shoppingCartRecords);
         }
 
         [Fact]
@@ -127,7 +126,7 @@ namespace SpyStore_HOL.Tests.RepoTests
             var item = _repo.Find(0, 32);
             _repo.Context.Entry(item).State = EntityState.Detached;
             _repo.Delete(item.Id, item.TimeStamp);
-            Assert.Equal(0, _repo.GetAll().Count());
+            Assert.Empty(_repo.GetAll());
         }
         [Fact]
         public void ShouldNotDeleteMissingCartRecord()
