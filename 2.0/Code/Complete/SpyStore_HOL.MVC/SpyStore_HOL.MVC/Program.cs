@@ -18,13 +18,12 @@ namespace SpyStore_HOL.MVC
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            //https://joonasw.net/view/aspnet-core-2-configuration-changes
-            //https://github.com/aspnet/MetaPackages/blob/dev/src/Microsoft.AspNetCore/WebHost.cs
             WebHost.CreateDefaultBuilder(args)
-                //.UseUrls("http://*:50794/")
                 .UseStartup<Startup>()
                 .Build();
 /*
+        //https://joonasw.net/view/aspnet-core-2-configuration-changes
+        //https://github.com/aspnet/MetaPackages/blob/dev/src/Microsoft.AspNetCore/WebHost.cs
         public static IWebHostBuilder CreateDefaultBuilder(string[] args)
         {
             var builder = new WebHostBuilder()

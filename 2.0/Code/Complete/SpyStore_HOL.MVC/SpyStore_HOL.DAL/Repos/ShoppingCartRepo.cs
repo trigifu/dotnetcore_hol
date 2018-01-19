@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using SpyStore_HOL.DAL.EfStructures;
@@ -29,18 +26,12 @@ namespace SpyStore_HOL.DAL.Repos
 
         public override IList<ShoppingCartRecord> GetAll()
             => Table.OrderByDescending(x => x.DateCreated).ToList();
-        public IEnumerable<ShoppingCartRecord> GetRange(int skip, int take)
-            => Table.OrderByDescending(x => x.DateCreated).Skip(skip).Take(take);
 
         public ShoppingCartRecord Find(int customerId, int productId)
-        {
-            return Table.FirstOrDefault(x => x.CustomerId == customerId && x.ProductId == productId);
-        }
+            => Table.FirstOrDefault(x => x.CustomerId == customerId && x.ProductId == productId);
 
-        public override int Update(ShoppingCartRecord entity,bool persist = true)
-        {
-            return Update(entity, _productRepo.Find(entity.ProductId)?.UnitsInStock,persist);
-        }
+        public override int Update(ShoppingCartRecord entity, bool persist = true)
+            => Update(entity, _productRepo.Find(entity.ProductId)?.UnitsInStock, persist);
 
         public int Update(ShoppingCartRecord entity, int? quantityInStock, bool persist = true)
         {
@@ -48,18 +39,18 @@ namespace SpyStore_HOL.DAL.Repos
             {
                 return Delete(entity, persist);
             }
+
             if (entity.Quantity > quantityInStock)
             {
                 throw new InvalidQuantityException("Can't add more product than available in stock");
             }
-            return base.Update(entity,persist);
+
+            return base.Update(entity, persist);
         }
 
         public override int Add(ShoppingCartRecord entity, bool persist = true)
-        {
-            return Add(entity, _productRepo.Find(entity.ProductId)?.UnitsInStock, persist);
+            => Add(entity, _productRepo.Find(entity.ProductId)?.UnitsInStock, persist);
 
-        }
         public int Add(ShoppingCartRecord entity, int? quantityInStock, bool persist = true)
         {
             var item = Find(entity.CustomerId, entity.ProductId);
@@ -69,10 +60,12 @@ namespace SpyStore_HOL.DAL.Repos
                 {
                     throw new InvalidQuantityException("Can't add more product than available in stock");
                 }
+
                 return base.Add(entity, persist);
             }
+
             item.Quantity += entity.Quantity;
-            return item.Quantity <= 0 ? Delete(item,persist) : Update(item,quantityInStock,persist);
+            return item.Quantity <= 0 ? Delete(item, persist) : Update(item, quantityInStock, persist);
         }
 
         internal CartRecordWithProductInfo GetRecord(int customerId, ShoppingCartRecord scr, Product p, Category c)
@@ -95,22 +88,18 @@ namespace SpyStore_HOL.DAL.Repos
                 LineItemTotal = scr.Quantity * p.CurrentPrice,
                 TimeStamp = scr.TimeStamp
             };
-        public CartRecordWithProductInfo GetShoppingCartRecord(
-            int customerId, int productId)
-            => Table
-            .Where(x => x.CustomerId == customerId && x.ProductId == productId)
-            .Include(x => x.Product)
-            .ThenInclude(p => p.Category)
-            .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category))
-            .FirstOrDefault();
 
-        public IEnumerable<CartRecordWithProductInfo> GetShoppingCartRecords(
-            int customerId)
+        public CartRecordWithProductInfo GetShoppingCartRecord(int customerId, int productId)
+            => Table
+                .Where(x => x.CustomerId == customerId && x.ProductId == productId)
+                .Include(x => x.Product).ThenInclude(p => p.Category)
+                .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category))
+                .FirstOrDefault();
+
+        public IEnumerable<CartRecordWithProductInfo> GetShoppingCartRecords(int customerId)
             => Table
                 .Where(x => x.CustomerId == customerId)
-                .Include(x => x.Product)
-                .ThenInclude(p => p.Category)
-                .OrderBy(x => x.Product.ModelName)
+                .Include(x => x.Product).ThenInclude(p => p.Category).OrderBy(x => x.Product.ModelName)
                 .Select(x => GetRecord(customerId, x, x.Product, x.Product.Category));
     }
 }

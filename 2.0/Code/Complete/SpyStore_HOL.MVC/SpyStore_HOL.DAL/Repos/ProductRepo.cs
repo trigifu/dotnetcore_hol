@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using SpyStore_HOL.DAL.EfStructures;
 using SpyStore_HOL.DAL.Repos.Base;
@@ -12,7 +11,7 @@ namespace SpyStore_HOL.DAL.Repos
 {
     public class ProductRepo : RepoBase<Product>, IProductRepo
     {
-        public ProductRepo() : base()
+        public ProductRepo()
         {
         }
 
@@ -68,7 +67,7 @@ namespace SpyStore_HOL.DAL.Repos
         public IList<ProductAndCategoryBase> Search(string searchString)
             => Table
                 .Where(p => EF.Functions.Like(p.Description, $"%{searchString}%")
-                || EF.Functions.Like(p.ModelName, $"%{searchString}%"))
+                            || EF.Functions.Like(p.ModelName, $"%{searchString}%"))
                 .Include(p => p.Category)
                 .OrderBy(x => x.ModelName)
                 .Select(item => GetRecord(item, item.Category))
