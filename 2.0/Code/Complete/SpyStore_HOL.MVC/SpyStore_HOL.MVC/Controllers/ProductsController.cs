@@ -10,15 +10,16 @@ namespace SpyStore_HOL.MVC.Controllers
     public class ProductsController : BaseController
     {
         private readonly IProductRepo _productRepo;
-        private readonly ICategoryRepo _categoryRepo;
 
         private readonly CustomSettings _settings;
 
-        public ProductsController(IProductRepo productRepo, ICategoryRepo categoryRepo, 
-            IOptionsSnapshot<CustomSettings> settings,ILogger<ProductsController> logger)
+        public ProductsController(
+            IProductRepo productRepo, 
+            IOptionsSnapshot<CustomSettings> settings, 
+            ILogger<ProductsController> logger)
         {
+            _settings = settings.Value;
             _productRepo = productRepo;
-            _categoryRepo = categoryRepo;
             Logger = logger;
         }
         public ILogger Logger { get; }
@@ -53,9 +54,9 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList(int id)
+        public IActionResult ProductList(ICategoryRepo categoryRepo,int id)
         {
-            var cat = _categoryRepo.Find(id);
+            var cat = categoryRepo.Find(id);
             ViewBag.Title = cat?.CategoryName;
             ViewBag.Header = cat?.CategoryName;
             ViewBag.ShowCategory = false;

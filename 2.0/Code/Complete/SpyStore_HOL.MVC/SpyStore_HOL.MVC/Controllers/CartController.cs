@@ -16,17 +16,10 @@ namespace SpyStore_HOL.MVC.Controllers
     public class CartController : BaseController
     {
         private readonly IShoppingCartRepo _shoppingCartRepo;
-        private readonly ICustomerRepo _customerRepo;
-        private readonly IProductRepo _productRepo;
         readonly MapperConfiguration _config = null;
-        public CartController(
-            IShoppingCartRepo shoppingCartRepo,
-            ICustomerRepo customerRepo,
-            IProductRepo productRepo)
+        public CartController(IShoppingCartRepo shoppingCartRepo)
         {
             _shoppingCartRepo = shoppingCartRepo;
-            _customerRepo = customerRepo;
-            _productRepo = productRepo;
             _config = new MapperConfiguration(
                 cfg =>
                 {
@@ -43,12 +36,12 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int customerId)
+        public IActionResult Index([FromServices] ICustomerRepo customerRepo, int customerId)
         {
             ViewBag.Title = "Cart";
             ViewBag.Header = "Cart";
             var cartItems = _shoppingCartRepo.GetShoppingCartRecords(customerId);
-            var customer = _customerRepo.Find(customerId);
+            var customer = customerRepo.Find(customerId);
             var mapper = _config.CreateMapper();
             var viewModel = new CartViewModel
             {
@@ -59,13 +52,13 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [HttpGet("{productId}")]
-        public IActionResult AddToCart(int customerId, int productId, bool cameFromProducts = false)
+        public IActionResult AddToCart([FromServices] IProductRepo productRepo,int customerId, int productId, bool cameFromProducts = false)
         {
             ViewBag.CameFromProducts = cameFromProducts;
             ViewBag.Title = "Add to Cart";
             ViewBag.Header = "Add to Cart";
             ViewBag.ShowCategory = true;
-            var prod = _productRepo.GetOneWithCategoryName(productId);
+            var prod = productRepo.GetOneWithCategoryName(productId);
             if (prod == null) return NotFound();
             var mapper = _config.CreateMapper();
             var cartRecord = mapper.Map<AddToCartViewModel>(prod);
@@ -74,8 +67,7 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [ActionName("AddToCart"),HttpPost("{productId}"),ValidateAntiForgeryToken]
-        public IActionResult AddToCartPost(
-            int customerId, int productId, AddToCartViewModel item)
+        public IActionResult AddToCartPost(int customerId, int productId, AddToCartViewModel item)
         {
             if (!ModelState.IsValid) return View(item);
             try
@@ -95,8 +87,7 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [HttpPost("{id}"),ValidateAntiForgeryToken]
-        public IActionResult Update(int customerId, int id, 
-            string timeStampString, CartRecordViewModel item)
+        public IActionResult Update(int customerId, int id, string timeStampString, CartRecordViewModel item)
         {
             item.TimeStamp = JsonConvert.DeserializeObject<byte[]>($"\"{timeStampString}\"");
             if (!ModelState.IsValid) return PartialView(item);
@@ -118,8 +109,7 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [HttpPost("{id}"),ValidateAntiForgeryToken]
-        public IActionResult Delete(int customerId, int id,
-            ShoppingCartRecord item)
+        public IActionResult Delete(int customerId, int id, ShoppingCartRecord item)
         {
             _shoppingCartRepo.Delete(id, item.TimeStamp);
             return RedirectToAction(nameof(Index), new { customerId });
