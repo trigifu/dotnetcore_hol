@@ -10,8 +10,8 @@ namespace SpyStore_HOL.MVC.Controllers
     public class ProductsController : BaseController
     {
         private readonly IProductRepo _productRepo;
-
         private readonly CustomSettings _settings;
+        private ILogger Logger { get; }
 
         public ProductsController(
             IProductRepo productRepo, 
@@ -22,7 +22,6 @@ namespace SpyStore_HOL.MVC.Controllers
             _productRepo = productRepo;
             Logger = logger;
         }
-        public ILogger Logger { get; }
 
         [HttpGet]
         public ActionResult Error()

@@ -4,13 +4,12 @@ namespace SpyStore_HOL.MVC.TagHelpers
 {
     public class EmailTagHelper : TagHelper
     {
-        // Can be passed via <email mail-to="..." />. 
         // Pascal case gets translated into lower-kebab-case.
+        // Can be passed via <email mail-to="..." />. 
         public string EmailName { get; set; }
         public string EmailDomain { get; set; }
 
-        public override void Process(
-            TagHelperContext context, TagHelperOutput output)
+        public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "a";    // Replaces <email> with <a> tag
             var address = EmailName + "@" + EmailDomain;

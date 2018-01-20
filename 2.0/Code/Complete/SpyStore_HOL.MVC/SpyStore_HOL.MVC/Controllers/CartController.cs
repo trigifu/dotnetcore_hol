@@ -66,8 +66,8 @@ namespace SpyStore_HOL.MVC.Controllers
             return View(cartRecord);
         }
 
-        [ActionName("AddToCart"),HttpPost("{productId}"),ValidateAntiForgeryToken]
-        public IActionResult AddToCartPost(int customerId, int productId, AddToCartViewModel item)
+        [HttpPost("{productId}"),ValidateAntiForgeryToken]
+        public IActionResult AddToCart(int customerId, int productId, AddToCartViewModel item)
         {
             if (!ModelState.IsValid) return View(item);
             try
@@ -115,15 +115,5 @@ namespace SpyStore_HOL.MVC.Controllers
             return RedirectToAction(nameof(Index), new { customerId });
         }
 
-        //[HttpPost,ValidateAntiForgeryToken]
-        //public IActionResult Buy(int customerId, Customer customer)
-        //{
-        //    int orderId = await _webApiCalls.PurchaseCartAsync(customer);
-        //    return RedirectToAction(
-        //        nameof(OrdersController.Details), 
-        //        nameof(OrdersController).Replace("Controller",""),
-        //        new { customerId, orderId });
-        //}
-
-    }
+     }
 }
