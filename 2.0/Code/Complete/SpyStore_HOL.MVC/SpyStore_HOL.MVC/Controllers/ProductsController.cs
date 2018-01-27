@@ -53,7 +53,7 @@ namespace SpyStore_HOL.MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult ProductList(ICategoryRepo categoryRepo,int id)
+        public IActionResult ProductList([FromServices]ICategoryRepo categoryRepo,int id)
         {
             var cat = categoryRepo.Find(id);
             ViewBag.Title = cat?.CategoryName;

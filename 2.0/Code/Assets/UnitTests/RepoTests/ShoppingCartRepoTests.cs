@@ -6,6 +6,7 @@ using SpyStore_HOL.DAL.Exceptions;
 using SpyStore_HOL.DAL.Repos;
 using SpyStore_HOL.Models.Entities;
 using Xunit;
+using Xunit.Sdk;
 
 namespace SpyStore_HOL.Tests.RepoTests
 {
