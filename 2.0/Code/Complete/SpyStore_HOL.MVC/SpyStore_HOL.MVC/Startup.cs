@@ -36,6 +36,12 @@ namespace SpyStore_HOL.MVC
             services.AddScoped<IOrderRepo, OrderRepo>();
             services.AddScoped<IOrderDetailRepo, OrderDetailRepo>();
             services.Configure<CustomSettings>(Configuration.GetSection("CustomSettings"));
+            services.AddWebOptimizer(options =>
+            {
+                //options.MinifyCssFiles();
+                //options.MinifyJsFiles();
+                options.AddJavaScriptBundle("/js/validations/validationCode.js","/js/validations/*.js");
+            });
 
         }
 
@@ -58,6 +64,7 @@ namespace SpyStore_HOL.MVC
                 app.UseExceptionHandler("/Products/Error");
             }
 
+            app.UseWebOptimizer();
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
